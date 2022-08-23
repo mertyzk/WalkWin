@@ -44,7 +44,7 @@ class SettingsViewController: UIViewController {
         view.addSubview(goBackHome)
         view.addSubview(topLabel)
         view.addSubview(exitButton)
-        goBackHome.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, padding: .init(top: 10, left: 15, bottom: 0, right: 0))
+        goBackHome.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, padding: .init(top: 5, left: 15, bottom: 0, right: 0))
         topLabel.anchor(top: nil, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
         topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         topLabel.centerYAnchor.constraint(equalTo: goBackHome.centerYAnchor).isActive = true

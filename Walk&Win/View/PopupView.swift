@@ -19,6 +19,13 @@ class AddPopUpWindowView: UIView {
     let popupCloseButton = UIButton(frame: CGRect.zero)
     let popupInfoLabel = UILabel(frame: CGRect.zero)
     
+    //MARK: - popupAddView Variables
+    let newActivityPopupAddView = UIView(frame: CGRect.zero)
+    let newActivityPopupNameTextField = UITextField(frame: CGRect.zero)
+    let newActivityPopupSaveButton = UIButton(frame: CGRect.zero)
+    let newActivityPopupCloseButton = UIButton(frame: CGRect.zero)
+    let newActivityPopupInfoLabel = UILabel(frame: CGRect.zero)
+    
     init() {
         super.init(frame: CGRect.zero)
         backgroundColor = UIColor.black.withAlphaComponent(0.3)
@@ -115,6 +122,62 @@ class AddPopUpWindowView: UIView {
         
         popupSaveButton.anchor(top: popupNickNameTextField.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 30, left: 0, bottom: 0, right: 0), size: .init(width: 196, height: 53))
         popupSaveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+    }
+    
+    
+    //MARK: - New Activity Layouts
+    func newActivityNameLayout(){
+        newActivityPopupAddView.backgroundColor = UIColor.colorFromHex("#FFFFFF")
+        newActivityPopupAddView.clipsToBounds = false
+        newActivityPopupAddView.layer.cornerRadius = 30
+
+        newActivityPopupNameTextField.textColor = UIColor.colorFromHex("#292A2F")
+        newActivityPopupNameTextField.font = UIFont.systemFont(ofSize: 20, weight: .light)
+        newActivityPopupNameTextField.alpha = 1
+        newActivityPopupNameTextField.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        newActivityPopupNameTextField.layer.borderWidth = 2
+        newActivityPopupNameTextField.layer.borderColor = UIColor(red: 0.424, green: 0.501, blue: 0.617, alpha: 0.4).cgColor
+        newActivityPopupNameTextField.placeholder = "Enter activity name"
+        newActivityPopupNameTextField.layer.cornerRadius = 20
+        newActivityPopupNameTextField.textAlignment = .center
+
+        newActivityPopupSaveButton.setTitleColor(UIColor.white, for: .normal)
+        newActivityPopupSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        newActivityPopupSaveButton.setTitleColor(UIColor.colorFromHex("#FFFFFF"), for: .normal)
+        newActivityPopupSaveButton.backgroundColor = UIColor.colorFromHex("#25293C")
+        newActivityPopupSaveButton.layer.cornerRadius = 29
+        newActivityPopupSaveButton.setTitle("Save & Start", for: .normal)
+        
+        newActivityPopupCloseButton.setImage(UIImage(systemName: "clear.fill"), for: .normal)
+        newActivityPopupCloseButton.tintColor = .black
+        
+        
+        newActivityPopupInfoLabel.text = "Start Activity"
+        newActivityPopupInfoLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        newActivityPopupInfoLabel.textColor = UIColor.colorFromHex("#25293C")
+        
+
+        newActivityPopupAddView.addSubview(newActivityPopupNameTextField)
+        newActivityPopupAddView.addSubview(newActivityPopupSaveButton)
+        newActivityPopupAddView.addSubview(newActivityPopupCloseButton)
+        newActivityPopupAddView.addSubview(newActivityPopupInfoLabel)
+        addSubview(newActivityPopupAddView)
+        
+        newActivityPopupAddView.anchor(top: nil, bottom: nil, leading: nil, trailing: nil, size: .init(width: 275 , height: 250))
+        newActivityPopupAddView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        newActivityPopupAddView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        newActivityPopupCloseButton.anchor(top: newActivityPopupAddView.topAnchor, bottom: nil, leading: nil, trailing: newActivityPopupAddView.trailingAnchor,
+                           padding: .init(top: 25, left: 0, bottom: 0, right: 25))
+        
+        newActivityPopupInfoLabel.anchor(top: newActivityPopupAddView.topAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 25, left: 0, bottom: 0, right: 0))
+        newActivityPopupInfoLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
+        newActivityPopupNameTextField.anchor(top: newActivityPopupInfoLabel.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 35, left: 0, bottom: 0, right: 0) ,size: .init(width: 225, height: 55))
+        newActivityPopupNameTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
+        newActivityPopupSaveButton.anchor(top: nil, bottom: newActivityPopupAddView.bottomAnchor, leading: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: .init(width: 150, height: 53))
+        newActivityPopupSaveButton.centerXAnchor.constraint(equalTo: newActivityPopupAddView.centerXAnchor).isActive = true
     }
     
 }

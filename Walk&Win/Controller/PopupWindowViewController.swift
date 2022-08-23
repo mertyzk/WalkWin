@@ -18,6 +18,8 @@ class PopUpWindow: UIViewController {
         modalPresentationStyle = .overFullScreen
         popUpWindowView.popupSaveButton.addTarget(self, action: #selector(registerButtonClicked), for: .touchUpInside)
         popUpWindowView.popupCloseButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
+        popUpWindowView.newActivityPopupSaveButton.addTarget(self, action: #selector(activitySaveButtonClicked), for: .touchUpInside)
+        popUpWindowView.newActivityPopupCloseButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         view = popUpWindowView
     }
 
@@ -33,10 +35,10 @@ class PopUpWindow: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func successCloseButtonClicked()
-    {
+    @objc func activitySaveButtonClicked(){
         
     }
+    
     
     /*fileprivate func goToHomePage(){
         let goToHomepageVC = HomepageViewController()
