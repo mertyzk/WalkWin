@@ -44,7 +44,8 @@ class ActivityDetailsViewController: UIViewController {
         label.text = "Kurtuluş Parkı Koşu"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
-        label.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.alpha = 0.45
         label.layer.cornerRadius = 10
         label.textAlignment = .center
         label.clipsToBounds = true

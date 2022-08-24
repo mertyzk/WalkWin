@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = .light
-        window.rootViewController = DashboardViewController()
+        window.rootViewController = SplashScreenViewController()
         self.window = window
     }
 

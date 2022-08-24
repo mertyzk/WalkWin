@@ -31,6 +31,19 @@ class SettingsViewController: UIViewController {
         return button
     }()
     
+    lazy var distanceTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Distance"
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+        label.backgroundColor = #colorLiteral(red: 0.3865185976, green: 0.4198502302, blue: 0.4646711349, alpha: 1)
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        label.widthAnchor.constraint(equalToConstant: 145).isActive = true
+        label.clipsToBounds = true
+        return label
+    }()
+    
     
     
     override func viewDidLoad() {
