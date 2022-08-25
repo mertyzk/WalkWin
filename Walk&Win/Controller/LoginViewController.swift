@@ -81,6 +81,10 @@ class LoginViewController: UIViewController {
         addTargetForLoginVC()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     fileprivate lazy var screenHeight = view.frame.size.height
     fileprivate lazy var screenWidth = view.frame.size.width
     func setLayout(){

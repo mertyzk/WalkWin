@@ -79,10 +79,12 @@ class AddPopUpWindowView: UIView {
 
         popupSaveButton.setTitleColor(UIColor.white, for: .normal)
         popupSaveButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        popupSaveButton.setTitleColor(UIColor.colorFromHex("#FFFFFF"), for: .normal)
-        popupSaveButton.backgroundColor = UIColor.colorFromHex("#25293C")
+        popupSaveButton.setTitleColor(UIColor.colorFromHex("#ded8d8"), for: .normal)
+        popupSaveButton.backgroundColor = UIColor.colorFromHex("#9b9ba4")
         popupSaveButton.layer.cornerRadius = 29
         popupSaveButton.setTitle("Sign Up", for: .normal)
+        popupSaveButton.isEnabled = false
+        popupSaveButton.isPointerInteractionEnabled = false
         
         popupCloseButton.setImage(UIImage(systemName: "clear.fill"), for: .normal)
         popupCloseButton.tintColor = .black

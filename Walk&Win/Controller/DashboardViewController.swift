@@ -41,12 +41,27 @@ class DashboardViewController: UIViewController {
         return button
     }()
     
+    lazy var nickName: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        label.textColor = .white
+        label.text = ""
+        return label
+    }()
+    
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Welcome User"
+        label.text = "Hi"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 25, weight: .light)
         return label
+    }()
+    
+    lazy var welcomeStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [welcomeLabel, nickName])
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        return stackView
     }()
     
     lazy var settingsButton: UIButton = {
@@ -57,7 +72,7 @@ class DashboardViewController: UIViewController {
     }()
     
     lazy var topStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [listButton, welcomeLabel, settingsButton])
+        let stackView = UIStackView(arrangedSubviews: [listButton, welcomeStackView, settingsButton])
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         return stackView
