@@ -41,11 +41,12 @@ class ActivityDetailsViewController: UIViewController {
     
     lazy var activityNameLabel: UILabel = {
         let label = PaddingLabel()
-        label.text = "Kurtuluş Parkı Koşu"
-        label.textColor = .white
+        label.attributedText = NSAttributedString(
+            string: "Kurtuluş Parkı Koşu",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
-        label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.alpha = 0.45
+        label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         label.layer.cornerRadius = 10
         label.textAlignment = .center
         label.clipsToBounds = true

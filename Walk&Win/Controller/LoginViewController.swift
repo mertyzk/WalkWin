@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -42,13 +44,6 @@ class LoginViewController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.textAlignment = .center
         textField.layer.cornerRadius = 15
-        return textField
-    }()
-    
-    lazy var nickNameTextField : UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .white
-        textField.placeholder = "Your nickname"
         return textField
     }()
     
@@ -124,10 +119,34 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonPressed(){
-        let goToDashboard: DashboardViewController = DashboardViewController()
-        goToDashboard.modalPresentationStyle = .fullScreen
-        goToDashboard.modalTransitionStyle = .crossDissolve
-        self.present(goToDashboard, animated: true)
+        
+        guard let emailAdress = emailTextField.text, let password = passwordTextField.text else { return }
+        
+        let hud = JGProgressHUD(style: .light)
+        hud.textLabel.text = "Logging in..."
+        hud.show(in: self.view)
+        
+        Auth.auth().signIn(withEmail: emailAdress, password: password) { result, error in
+            if error != nil {
+                hud.dismiss(animated: false)
+                let alert = UIAlertController(title: "Sign In Error!", message: "Login failed", preferredStyle: .alert)
+                self.present(alert, animated: true)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                    alert.dismiss(animated: true)
+                }))
+                return
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                self.goToHomepage()
+            }
+        }
+    }
+    
+    fileprivate func goToHomepage(){
+        let goToHomepage: DashboardViewController = DashboardViewController()
+        goToHomepage.modalPresentationStyle = .fullScreen
+        goToHomepage.modalTransitionStyle = .crossDissolve
+        self.present(goToHomepage, animated: true)
     }
 
 }

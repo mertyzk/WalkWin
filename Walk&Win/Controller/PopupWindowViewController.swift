@@ -16,7 +16,6 @@ class PopUpWindow: UIViewController {
     let popUpWindowView = AddPopUpWindowView()
     let registerHud = JGProgressHUD(style: .dark)
     var dashboardVC = DashboardViewController()
-    var sendNickName: String?
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -55,12 +54,9 @@ class PopUpWindow: UIViewController {
         let goToDashboardVC = DashboardViewController()
         goToDashboardVC.modalPresentationStyle = .fullScreen
         goToDashboardVC.modalTransitionStyle = .crossDissolve
-        goToDashboardVC.nickName.text = sendNickName
         present(goToDashboardVC, animated: true)
     }
 
-
-    
     @objc func registerButtonClicked(){
         guard let emailAdress = popUpWindowView.popupEmailTextField.text, let nickname = popUpWindowView.popupNickNameTextField.text, let password = popUpWindowView.popupPasswordTextField.text else { return }
         
@@ -70,7 +66,6 @@ class PopUpWindow: UIViewController {
                 return
             } else {
                 guard let userID = result?.user.uid else { return }
-                self.sendNickName = nickname
                 let setData = ["UserName" : nickname, "UserID" : userID, "EmailAdress" : emailAdress]
                 Firestore.firestore().collection("Users").document(userID).setData(setData) { (error) in
                     if let error = error {

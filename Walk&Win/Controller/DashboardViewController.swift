@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 struct UserListData{
     var userName : String?
@@ -51,7 +52,6 @@ class DashboardViewController: UIViewController {
     
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hi"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 25, weight: .light)
         return label
@@ -189,6 +189,13 @@ class DashboardViewController: UIViewController {
         configTableView()
         addTargetForDashboard()
         setDashboardLayout()
+        getByDataFromFirebase()
+        loggedInUserControl()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getByDataFromFirebase()
+        loggedInUserControl()
     }
 
     func setTableViewDelegate(){
@@ -243,7 +250,37 @@ class DashboardViewController: UIViewController {
         goToNewActivity.modalTransitionStyle = .crossDissolve
         self.present(goToNewActivity, animated: true)
     }
-
+    
+    fileprivate func goToLogin(){
+        let goToLoginVC: LoginViewController = LoginViewController()
+        goToLoginVC.modalPresentationStyle = .fullScreen
+        goToLoginVC.modalTransitionStyle = .crossDissolve
+        self.present(goToLoginVC, animated: true)
+    }
+    
+    fileprivate func getByDataFromFirebase(){
+        guard let currenUserID = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("Users").document(currenUserID).getDocument { snapshot, error in
+            if let error = error {
+                print("Get data error: ",error)
+                return
+            }
+            
+            guard let userData = snapshot?.data() else { return }
+            currentUser = User(userData: userData)
+            self.welcomeLabel.text = "Hi, \(currentUser?.nickName ?? "Error")"
+            
+        }
+    }
+    
+    fileprivate func loggedInUserControl(){
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                self.goToLogin()
+            }
+        }
+        return
+    }
     
     lazy var screenHeight = view.frame.size.height
     lazy var screenWidth = view.frame.size.width
