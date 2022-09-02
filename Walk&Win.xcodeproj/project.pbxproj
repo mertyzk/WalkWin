@@ -27,6 +27,7 @@
 		E29FA54328AEB18E008F4454 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29FA54228AEB18E008F4454 /* HistoryViewController.swift */; };
 		E29FA54528AEB5EC008F4454 /* ActivityDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29FA54428AEB5EC008F4454 /* ActivityDetailsViewController.swift */; };
 		E29FA54728AEBC22008F4454 /* NewActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29FA54628AEBC22008F4454 /* NewActivityViewController.swift */; };
+		E2A6029828C1E37800C4ADD3 /* NewActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A6029728C1E37800C4ADD3 /* NewActivityView.swift */; };
 		E2CADCAB28AD061600648AB9 /* PopupWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CADCAA28AD061600648AB9 /* PopupWindowViewController.swift */; };
 		E2CADCAD28AD064800648AB9 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CADCAC28AD064800648AB9 /* PopupView.swift */; };
 		E2CADCAF28AD071B00648AB9 /* Extensions+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CADCAE28AD071B00648AB9 /* Extensions+UIColor.swift */; };
@@ -58,6 +59,7 @@
 		E29FA54228AEB18E008F4454 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		E29FA54428AEB5EC008F4454 /* ActivityDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewController.swift; sourceTree = "<group>"; };
 		E29FA54628AEBC22008F4454 /* NewActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityViewController.swift; sourceTree = "<group>"; };
+		E2A6029728C1E37800C4ADD3 /* NewActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivityView.swift; sourceTree = "<group>"; };
 		E2CADCAA28AD061600648AB9 /* PopupWindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PopupWindowViewController.swift; path = "Walk&Win/Controller/PopupWindowViewController.swift"; sourceTree = SOURCE_ROOT; };
 		E2CADCAC28AD064800648AB9 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		E2CADCAE28AD071B00648AB9 /* Extensions+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIColor.swift"; sourceTree = "<group>"; };
@@ -167,8 +169,11 @@
 		E21A4F39288E51E10083458C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E2A6029628C1E35600C4ADD3 /* Login */,
+				E2A6029528C1E33900C4ADD3 /* ActivityDetails */,
+				E2A6029428C1E32F00C4ADD3 /* NewActivity */,
+				E2A6029328C1E32500C4ADD3 /* Popup */,
 				E2E98D2A28AF657400B3E642 /* Cell */,
-				E2CADCAC28AD064800648AB9 /* PopupView.swift */,
 				E258B47728B4CAFD00786F94 /* PaddingLabel.swift */,
 			);
 			path = View;
@@ -207,6 +212,36 @@
 				E2CADCAE28AD071B00648AB9 /* Extensions+UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E2A6029328C1E32500C4ADD3 /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				E2CADCAC28AD064800648AB9 /* PopupView.swift */,
+			);
+			path = Popup;
+			sourceTree = "<group>";
+		};
+		E2A6029428C1E32F00C4ADD3 /* NewActivity */ = {
+			isa = PBXGroup;
+			children = (
+				E2A6029728C1E37800C4ADD3 /* NewActivityView.swift */,
+			);
+			path = NewActivity;
+			sourceTree = "<group>";
+		};
+		E2A6029528C1E33900C4ADD3 /* ActivityDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ActivityDetails;
+			sourceTree = "<group>";
+		};
+		E2A6029628C1E35600C4ADD3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		E2E98D2A28AF657400B3E642 /* Cell */ = {
@@ -360,6 +395,7 @@
 				E2CADCAF28AD071B00648AB9 /* Extensions+UIColor.swift in Sources */,
 				E29FA54128AEB140008F4454 /* SettingsViewController.swift in Sources */,
 				E29FA54728AEBC22008F4454 /* NewActivityViewController.swift in Sources */,
+				E2A6029828C1E37800C4ADD3 /* NewActivityView.swift in Sources */,
 				E29309F628B8D1DD008CDBC6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +464,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -482,7 +518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -507,7 +543,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -536,7 +572,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

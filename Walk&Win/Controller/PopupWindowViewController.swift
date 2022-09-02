@@ -16,6 +16,7 @@ class PopUpWindow: UIViewController {
     let popUpWindowView = AddPopUpWindowView()
     let registerHud = JGProgressHUD(style: .dark)
     var dashboardVC = DashboardViewController()
+    let newActivityVC = NewActivityViewController()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -23,12 +24,10 @@ class PopUpWindow: UIViewController {
         modalPresentationStyle = .overFullScreen
         popUpWindowView.popupSaveButton.addTarget(self, action: #selector(registerButtonClicked), for: .touchUpInside)
         popUpWindowView.popupCloseButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
-        popUpWindowView.newActivityPopupSaveButton.addTarget(self, action: #selector(activitySaveButtonClicked), for: .touchUpInside)
-        popUpWindowView.newActivityPopupCloseButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
-        
         popUpWindowView.popupEmailTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
         popUpWindowView.popupPasswordTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
         popUpWindowView.popupNickNameTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
+        popUpWindowView.newActivityPopupSaveButton.addTarget(self, action: #selector(soyle), for: .touchUpInside)
         
         view = popUpWindowView
     }
@@ -46,7 +45,12 @@ class PopUpWindow: UIViewController {
     }
     
     @objc func activitySaveButtonClicked(){
+        dismiss(animated: true)
         
+    }
+    
+    @objc func soyle(){
+        NotificationCenter.default.post(name: NSNotification.Name("dinleyen"), object: nil)
     }
     
     

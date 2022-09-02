@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController {
     
     lazy var eMailInfoTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "merhaba@gmail.com"
+        label.text = "\(currentUser?.emailAdress ?? "Error")"
         label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
@@ -98,7 +98,7 @@ class SettingsViewController: UIViewController {
     lazy var nicknameTextField: UITextField = {
         let nicknameTextField = UITextField()
         nicknameTextField.attributedPlaceholder = NSAttributedString(
-            string: "Enter a new nickname",
+            string: "\(currentUser?.nickName ?? "Error")",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
         )
         nicknameTextField.textColor = .white

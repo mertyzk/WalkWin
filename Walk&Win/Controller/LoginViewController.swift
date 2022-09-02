@@ -129,7 +129,7 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: emailAdress, password: password) { result, error in
             if error != nil {
                 hud.dismiss(animated: false)
-                let alert = UIAlertController(title: "Sign In Error!", message: "Login failed", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Sign In Error!", message: error?.localizedDescription, preferredStyle: .alert)
                 self.present(alert, animated: true)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
                     alert.dismiss(animated: true)
