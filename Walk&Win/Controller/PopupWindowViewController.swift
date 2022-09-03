@@ -27,7 +27,8 @@ class PopUpWindow: UIViewController {
         popUpWindowView.popupEmailTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
         popUpWindowView.popupPasswordTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
         popUpWindowView.popupNickNameTextField.addTarget(self, action: #selector(checkDataChange), for: .editingChanged)
-        popUpWindowView.newActivityPopupSaveButton.addTarget(self, action: #selector(soyle), for: .touchUpInside)
+        popUpWindowView.newActivityPopupSaveButton.addTarget(self, action: #selector(newActivitySaveClicked), for: .touchUpInside)
+        popUpWindowView.newActivityPopupCloseButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
         
         view = popUpWindowView
     }
@@ -49,8 +50,12 @@ class PopUpWindow: UIViewController {
         
     }
     
-    @objc func soyle(){
-        NotificationCenter.default.post(name: NSNotification.Name("dinleyen"), object: nil)
+    @objc func newActivitySaveClicked(){
+        dismiss(animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name("startUpdatingLocation"), object: nil)
+        if let incomingName = popUpWindowView.newActivityPopupNameTextField.text {
+            activityName = incomingName
+        }
     }
     
     
@@ -70,7 +75,7 @@ class PopUpWindow: UIViewController {
                 return
             } else {
                 guard let userID = result?.user.uid else { return }
-                let setData = ["UserName" : nickname, "UserID" : userID, "EmailAdress" : emailAdress]
+                let setData = ["nickName" : nickname, "userID" : userID, "emailAdress" : emailAdress]
                 Firestore.firestore().collection("Users").document(userID).setData(setData) { (error) in
                     if let error = error {
                         print("Error occurred while saving data", error)

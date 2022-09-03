@@ -10,12 +10,19 @@ import Foundation
 var currentUser: User?
 
 struct User {
-    let nickName: String
-    let userID: String
-    let emailAdress: String
+    var nickName: String?
+    var userID: String?
+    var emailAdress: String?
+    var totalDistance: Double?
+    
     init(userData: [String : Any]) {
-        self.nickName = userData["UserName"] as? String ?? "0x0x0x0"
-        self.userID = userData["UserID"] as? String ?? "0x0x0x0"
-        self.emailAdress = userData["EmailAdress"] as? String ?? "0x0x0x0"
+        self.nickName = userData["nickName"] as? String ?? "0x0x0x0"
+        self.userID = userData["userID"] as? String ?? "0x0x0x0"
+        self.emailAdress = userData["emailAdress"] as? String ?? "0x0x0x0"
+        self.totalDistance = userData["totalDistance"] as? Double ?? 000
+    }
+    
+    init(){
+        
     }
 }

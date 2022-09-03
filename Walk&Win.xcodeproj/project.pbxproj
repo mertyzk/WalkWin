@@ -15,6 +15,7 @@
 		E21A4F29288E50C00083458C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E21A4F28288E50C00083458C /* Assets.xcassets */; };
 		E21A4F2C288E50C00083458C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21A4F2A288E50C00083458C /* LaunchScreen.storyboard */; };
 		E22606A428AFA6E60080A5A9 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22606A328AFA6E60080A5A9 /* HistoryCell.swift */; };
+		E234ABEC28C3C65400513955 /* Activities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E234ABEB28C3C65400513955 /* Activities.swift */; };
 		E23DCB7A28ACD35200D483FC /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7928ACD35200D483FC /* Extensions+UIImageView.swift */; };
 		E23DCB7C28ACDC8800D483FC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7B28ACDC8800D483FC /* LoginViewController.swift */; };
 		E23DCB8028ACDD4500D483FC /* GradientManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7F28ACDD4500D483FC /* GradientManagement.swift */; };
@@ -47,6 +48,7 @@
 		E21A4F2B288E50C00083458C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E21A4F2D288E50C00083458C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E22606A328AFA6E60080A5A9 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		E234ABEB28C3C65400513955 /* Activities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activities.swift; sourceTree = "<group>"; };
 		E23DCB7928ACD35200D483FC /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
 		E23DCB7B28ACDC8800D483FC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E23DCB7F28ACDD4500D483FC /* GradientManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientManagement.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				E29309F528B8D1DD008CDBC6 /* User.swift */,
+				E234ABEB28C3C65400513955 /* Activities.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				E29FA54728AEBC22008F4454 /* NewActivityViewController.swift in Sources */,
 				E2A6029828C1E37800C4ADD3 /* NewActivityView.swift in Sources */,
 				E29309F628B8D1DD008CDBC6 /* User.swift in Sources */,
+				E234ABEC28C3C65400513955 /* Activities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

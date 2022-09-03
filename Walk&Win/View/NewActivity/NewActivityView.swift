@@ -111,25 +111,10 @@ class NewActivityView: UIView {
         label.clipsToBounds = true
         return label
     }()
-    
-    lazy var activityNameTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Activity Name"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.backgroundColor = #colorLiteral(red: 0.3865185976, green: 0.4198502302, blue: 0.4646711349, alpha: 1)
-        label.widthAnchor.constraint(equalToConstant: 145).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        label.layer.cornerRadius = 10
-        label.textAlignment = .center
-        label.clipsToBounds = true
-        return label
-    }()
-    
-    
+
     
     lazy var titleStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [activityNameTitleLabel, distanceTitleLabel, velocityTitleLabel, timeTitleLabel])
+        let stackView = UIStackView(arrangedSubviews: [distanceTitleLabel, velocityTitleLabel, timeTitleLabel])
         stackView.axis = .vertical
         stackView.spacing = 10
         return stackView
@@ -137,7 +122,7 @@ class NewActivityView: UIView {
     
     lazy var distanceLabel: UILabel = {
         let label = UILabel()
-        label.text = "--- km"
+        label.text = "---"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
         label.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
@@ -151,7 +136,7 @@ class NewActivityView: UIView {
     
     lazy var velocityLabel: UILabel = {
         let label = UILabel()
-        label.text = "--- km/h"
+        label.text = "---"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
         label.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
@@ -165,7 +150,7 @@ class NewActivityView: UIView {
     
     lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "--- min"
+        label.text = "---"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 22, weight: .light)
         label.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
@@ -177,25 +162,8 @@ class NewActivityView: UIView {
         return label
     }()
     
-    lazy var activityNameTextField: UITextField = {
-        let textArea = UITextField()
-        textArea.attributedPlaceholder = NSAttributedString(
-            string: "Required Field",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
-        )
-        textArea.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        textArea.textColor = .white
-        textArea.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        textArea.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        textArea.widthAnchor.constraint(equalToConstant: 145).isActive = true
-        textArea.layer.cornerRadius = 10
-        textArea.textAlignment = .center
-        textArea.clipsToBounds = true
-        return textArea
-    }()
-    
     lazy var labelStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [activityNameTextField, distanceLabel, velocityLabel, timeLabel])
+        let stackView = UIStackView(arrangedSubviews: [distanceLabel, velocityLabel, timeLabel])
         stackView.axis = .vertical
         stackView.spacing = 10
         return stackView
@@ -234,7 +202,7 @@ class NewActivityView: UIView {
         infoButton.centerYAnchor.constraint(equalTo: goBackHome.centerYAnchor).isActive = true
         
         if (screenHeight < 668){
-            mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (340 * screenHeight) / 926, right: 0))
+            mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (285 * screenHeight) / 926, right: 0))
         } else {
             
             mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (275 * screenHeight) / 926, right: 0))

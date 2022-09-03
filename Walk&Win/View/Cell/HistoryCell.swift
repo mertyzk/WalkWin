@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol CellDelegate: AnyObject {
     func activityDetailsButtonTapped(cell: HistoryCell)
@@ -80,10 +81,22 @@ class HistoryCell: UITableViewCell {
             return button
         }()
     
-    func setGenerate(item: MyActivityData) {
-        activityName.text = item.activityName
-        activityDate.text = item.activityDate
-        activityDistance.text = "\(item.activityDistance!) km"
+    func setGenerate(item: Activities) {
+        activityName.text = item.ActivityName
+        let meterToKilometer = item.ActivityDistance! / 1000
+        let convertMeterToKilomet = String(format: "%.2f", meterToKilometer)
+        
+        
+        
+        
+        activityDistance.text = "\(convertMeterToKilomet) km"
+        let formatActivityTime = item.ActivityDate!
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+3")
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "dd-MM-yyyy / HH:mm"
+        let strDate = dateFormatter.string(from: formatActivityTime.dateValue())
+        activityDate.text = strDate
     }
     
     @objc func activityDetailsButtonClicked(){

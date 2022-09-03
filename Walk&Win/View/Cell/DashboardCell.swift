@@ -60,9 +60,9 @@ class DashboardCell: UITableViewCell {
     }()
     
     
-    func setGenerate(item: UserListData) {
-        userName.text = item.userName
-        totalDistance.text = item.totalDistance
+    func setGenerate(item: User) {
+        userName.text = item.nickName
+        totalDistance.text = "\(item.totalDistance!)"
     }
     
     

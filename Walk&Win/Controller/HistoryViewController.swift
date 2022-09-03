@@ -6,24 +6,13 @@
 //
 
 import UIKit
-
-struct MyActivityData{
-    var activityName : String?
-    var activityDate : String?
-    var activityDistance : String?
-}
+import Firebase
 
 class HistoryViewController: UIViewController {
     
     let tableView = UITableView()
     
-    var arrayData: [MyActivityData] = [MyActivityData(activityName: "Güvenpark", activityDate: "19/08/2022", activityDistance: "3"),
-                                         MyActivityData(activityName: "Abdi İpekçi Parkı", activityDate: "15/08/2022", activityDistance: "5.5"),
-                                     MyActivityData(activityName: "Kurtuluş Parkı", activityDate: "08/08/2022", activityDistance: "8"),
-                                     MyActivityData(activityName: "Mogan Gölü", activityDate: "19/07/2022", activityDistance: "11"),
-                                     MyActivityData(activityName: "Göksupark", activityDate: "05/07/2022", activityDistance: "10"),
-                                     MyActivityData(activityName: "Mavigöl", activityDate: "28/06/2022", activityDistance: "9"),
-                                     MyActivityData(activityName: "Eymir Gölü", activityDate: "11/06/2022", activityDistance: "24")]
+    var myActivities: [Activities] = []
 
     lazy var goBackHome: UIButton = {
         let button = UIButton()
@@ -53,6 +42,7 @@ class HistoryViewController: UIViewController {
         GradientManagement.shared.setGradient(incomingView: view)
         configTableView()
         setToHistoryVCLayout()
+        getDataByFirebase()
         
     }
     
@@ -67,6 +57,28 @@ class HistoryViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         setTableViewDelegate()
         tableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
+    }
+    
+    func getDataByFirebase(){
+
+        Firestore.firestore().collection("Activities").whereField("UserId", isEqualTo: currentUser!.userID).getDocuments { snapshot, fault in
+            if let fault = fault {
+                print("kullanıcı bilgileri getirilirken hata: \(fault)")
+                return
+            }
+            //guard let incomingData = snapshot?.documents else { return }
+            
+            for document in snapshot!.documents {
+                var activiyInstance = Activities()
+                guard let myData = document.data()["UserId"] else { return }
+                activiyInstance.ActivityName = document.data()["ActivityName"] as? String
+                activiyInstance.ActivityDate = document.data()["ActivityDate"] as? Timestamp
+                activiyInstance.ActivityDistance = document.data()["ActivityDistance"] as? Double
+                self.myActivities.append(activiyInstance)
+            }
+            self.tableView.reloadData()
+        }
+
     }
     
     lazy var screenHeight = view.frame.size.height
@@ -123,13 +135,14 @@ class HistoryViewController: UIViewController {
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayData.count
+        return myActivities.count
     }
        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
         cell.delegate = self
-        cell.setGenerate(item: arrayData[indexPath.row])
+        let data = myActivities[indexPath.row]
+        cell.setGenerate(item: data)
         return cell
     }
     

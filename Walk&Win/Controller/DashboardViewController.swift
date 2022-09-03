@@ -16,24 +16,8 @@ struct UserListData{
 class DashboardViewController: UIViewController {
     
     var tableView = UITableView()
+    var popularUsersData: [User] = []
     
-    var userData: [UserListData] = [UserListData(userName: "Daybreak", totalDistance: "22375m"),
-                                    UserListData(userName: "TrueFate", totalDistance: "19274m"),
-                                    UserListData(userName: "Scapula", totalDistance: "11654m"),
-                                    UserListData(userName: "Chinaplate", totalDistance: "10000m"),
-                                    UserListData(userName: "Hedonist", totalDistance: "9874m"),
-                                    UserListData(userName: "Abominate", totalDistance: "8622m"),
-                                    UserListData(userName: "MuttonChops", totalDistance: "7984m"),
-                                    UserListData(userName: "Bacterigerm", totalDistance: "6751m"),
-                                    UserListData(userName: "Incubus", totalDistance: "5543m"),
-                                    UserListData(userName: "ViperStrike", totalDistance: "4985m"),
-                                    UserListData(userName: "MsMittens", totalDistance: "4211m"),
-                                    UserListData(userName: "Hedonist", totalDistance: "3160m"),
-                                    UserListData(userName: "Sharkgirl", totalDistance: "2876m"),
-                                    UserListData(userName: "Presbiopic", totalDistance: "2216m"),
-                                    UserListData(userName: "Palpebral", totalDistance: "1985m"),
-                                    UserListData(userName: "Megalith", totalDistance: "1255m"),
-                                    UserListData(userName: "LateNever", totalDistance: "904m")]
     
     lazy var listButton: UIButton = {
         let button = UIButton()
@@ -185,17 +169,16 @@ class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loggedInUserControl()
         GradientManagement.shared.setGradient(incomingView: view)
         configTableView()
         addTargetForDashboard()
         setDashboardLayout()
-        getByDataFromFirebase()
-        loggedInUserControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getByDataFromFirebase()
-        loggedInUserControl()
+        getTopUsersListFromFirebase()
     }
 
     func setTableViewDelegate(){
@@ -265,11 +248,29 @@ class DashboardViewController: UIViewController {
                 print("Get data error: ",error)
                 return
             }
-            
+   
             guard let userData = snapshot?.data() else { return }
             currentUser = User(userData: userData)
             self.welcomeLabel.text = "Hi, \(currentUser?.nickName ?? "Error")"
             
+        }
+    }
+    
+    func getTopUsersListFromFirebase(){
+        
+        Firestore.firestore().collection("Users").getDocuments { snapshot, fault in
+            if let fault = fault {
+                print("kullanıcı bilgileri getirilirken hata: \(fault)")
+                return
+            }
+            //guard let incomingData = snapshot?.documents else { return }
+            var userInstance = User()
+            for document in snapshot!.documents {
+                userInstance.nickName = document.data()["nickName"] as? String
+                userInstance.totalDistance = document.data()["totalDistance"] as? Double
+                self.popularUsersData.append(userInstance)
+            }
+            self.tableView.reloadData()
         }
     }
     
@@ -334,25 +335,54 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch screenHeight {
         case 667: // SE 2nd gen, 8, 7, 6s, 6
-            return 7
+            if (popularUsersData.count > 7){
+                return 7
+            } else {
+                return popularUsersData.count
+            }
         case 844: // 13, 13 pro, 12, 12 pro
-            return 9
+            if (popularUsersData.count > 9){
+                return 9
+            } else {
+                return popularUsersData.count
+            }
         case 812: // 13 mini, 12 mini, 11 pro, xs, x
-            return 8
+            if (popularUsersData.count > 8){
+                return 8
+            } else {
+                return popularUsersData.count
+            }
         case 896: // 11 pro max, 11, xr, xs max
-            return 10
+            if (popularUsersData.count > 10){
+                return 10
+            } else {
+                return popularUsersData.count
+            }
         case 736: // 8 plus
-            return 8
+            if (popularUsersData.count > 8){
+                return 8
+            } else {
+                return popularUsersData.count
+            }
         case 926: // 13 pro max - 12 pro max
-            return 10
+            if (popularUsersData.count > 10){
+                return 10
+            } else {
+                return popularUsersData.count
+            }
         default:
-            return 10
+            if (popularUsersData.count > 10){
+                return 10
+            } else {
+                return popularUsersData.count
+            }
         }
     }
        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "dashboardCell", for: indexPath) as! DashboardCell
-        cell.setGenerate(item: userData[indexPath.row])
+        let data = popularUsersData[indexPath.row]
+        cell.setGenerate(item: data)
         cell.sequence.text = String(indexPath.row + 1) + "."
         return cell
     }
