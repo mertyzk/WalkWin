@@ -70,10 +70,12 @@ class HistoryViewController: UIViewController {
             
             for document in snapshot!.documents {
                 var activiyInstance = Activities()
-                guard let myData = document.data()["UserId"] else { return }
+                guard let _ = document.data()["UserId"] else { return }
                 activiyInstance.ActivityName = document.data()["ActivityName"] as? String
                 activiyInstance.ActivityDate = document.data()["ActivityDate"] as? Timestamp
                 activiyInstance.ActivityDistance = document.data()["ActivityDistance"] as? Double
+                activiyInstance.ActivityTime = document.data()["ActivityTime"] as? Int
+                activiyInstance.ActivityVelocity = document.data()["ActivityVelocity"] as? Double
                 self.myActivities.append(activiyInstance)
             }
             self.tableView.reloadData()
@@ -153,9 +155,19 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension HistoryViewController: CellDelegate {
     func activityDetailsButtonTapped(cell: HistoryCell) {
+        guard let index = self.tableView.indexPath(for: cell) else { return }
+        let data = myActivities[index.row]
         let goToActivityDetailVC: ActivityDetailsViewController = ActivityDetailsViewController()
         goToActivityDetailVC.modalPresentationStyle = .fullScreen
         goToActivityDetailVC.modalTransitionStyle = .crossDissolve
+        if let distance = cell.activityDistance.text, let name = cell.activityName.text {
+            goToActivityDetailVC.activityNameLabel.text = name
+            goToActivityDetailVC.distanceLabel.text = distance
+            let stringVelocity = String(format: "%.1f", data.ActivityVelocity ?? "0.0 m/s")
+            goToActivityDetailVC.velocityLabel.text = "\(stringVelocity) m/s"
+            goToActivityDetailVC.timeLabel.text = "\(data.ActivityTime ?? 0) dk"
+
+        }
         self.present(goToActivityDetailVC, animated: true, completion: nil)
     }
     

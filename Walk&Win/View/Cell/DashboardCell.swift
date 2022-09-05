@@ -62,7 +62,8 @@ class DashboardCell: UITableViewCell {
     
     func setGenerate(item: User) {
         userName.text = item.nickName
-        totalDistance.text = "\(item.totalDistance!)"
+        let convertTo2f = String(format: "%.2f", item.totalDistance ?? 0.0)
+        totalDistance.text = "\(convertTo2f)m"
     }
     
     
@@ -104,7 +105,7 @@ class DashboardCell: UITableViewCell {
         
 
         rightArea.anchor(top: midArea.topAnchor, bottom: midArea.bottomAnchor, leading: midArea.trailingAnchor, trailing: self.trailingAnchor,
-                         padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: (125 * screenWidth / 428), height: 36))
+                         padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: (145 * screenWidth / 428), height: 36))
         
 
         userName.anchor(top: nil, bottom: nil, leading: midArea.leadingAnchor, trailing: nil,

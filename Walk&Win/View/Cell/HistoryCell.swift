@@ -85,10 +85,6 @@ class HistoryCell: UITableViewCell {
         activityName.text = item.ActivityName
         let meterToKilometer = item.ActivityDistance! / 1000
         let convertMeterToKilomet = String(format: "%.2f", meterToKilometer)
-        
-        
-        
-        
         activityDistance.text = "\(convertMeterToKilomet) km"
         let formatActivityTime = item.ActivityDate!
         let dateFormatter = DateFormatter()

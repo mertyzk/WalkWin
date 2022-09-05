@@ -19,7 +19,7 @@ struct User {
         self.nickName = userData["nickName"] as? String ?? "0x0x0x0"
         self.userID = userData["userID"] as? String ?? "0x0x0x0"
         self.emailAdress = userData["emailAdress"] as? String ?? "0x0x0x0"
-        self.totalDistance = userData["totalDistance"] as? Double ?? 000
+        self.totalDistance = userData["totalDistance"] as? Double ?? 0.0
     }
     
     init(){

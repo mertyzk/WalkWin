@@ -24,6 +24,7 @@ class NewActivityViewController: UIViewController {
     var timer = Timer()
     var resetStatus: Bool = false
     var totalDistanceFromUser: Double = 0.0
+    var lastPositionVelocity: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +67,7 @@ class NewActivityViewController: UIViewController {
                 return
             }
             guard let userData = snapshot?.data() else { return }
-            self.totalDistanceFromUser = userData["totalDistance"] as! Double
+            self.totalDistanceFromUser = userData["totalDistance"] as? Double ?? 0.0
             
             
         }
@@ -96,6 +97,8 @@ class NewActivityViewController: UIViewController {
     
     func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateForCounter), userInfo: nil, repeats: true)
+
+        
     }
     
     func stopTimer(){
@@ -127,7 +130,7 @@ class NewActivityViewController: UIViewController {
         let convertDistance = String(format: "%.1f", activityDistance)
         activityDistance = Double(convertDistance)!
         totalDistanceFromUser += activityDistance
-        let setData : [String : Any] = ["ActivityId" : UUID().uuidString, "ActivityDistance" : activityDistance, "ActivityName" : activityName, "UserId" : currentUser!.userID, "ActivityDate" : time]
+        let setData : [String : Any] = ["ActivityId" : UUID().uuidString, "ActivityDistance" : activityDistance, "ActivityName" : activityName, "UserId" : currentUser!.userID, "ActivityDate" : time, "ActivityTime" : timeCounter, "ActivityVelocity" : lastPositionVelocity]
         fireStore.collection("Activities").document().setData(setData, merge: true) { (error) in
             if error == nil {
                 return
@@ -151,6 +154,7 @@ class NewActivityViewController: UIViewController {
     
     @objc func updateForCounter(){
         timeCounter = timeCounter + 1
+        newActivityUI.timeLabel.text = "\(timeCounter) sec"
     }
     
     @objc fileprivate func infoButtonClicked(){
@@ -192,15 +196,11 @@ extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegat
             if(activityStatus == true) {
                 if (resetStatus == false){
                     activityDistance = 0
-                    //startTimer()
                     resetStatus = true
                 }
                 newActivityUI.distanceLabel.text = "\(stringDistance) m"
                 newActivityUI.velocityLabel.text = "\(lastPosition.speed)"
-
-                if (timeCounter > 0){
-                    newActivityUI.timeLabel.text = "\(timeCounter) sec"
-                }
+                lastPositionVelocity = activityDistance / Double(timeCounter)
             }
 
         }

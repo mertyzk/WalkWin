@@ -198,12 +198,17 @@ class ActivityDetailsViewController: UIViewController {
         activityNameLabel.anchor(top: mapView.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         activityNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        titleStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
+        if(screenWidth < 376){
+            titleStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, padding: .init(top: 15, left: (38 * screenWidth) / 428, bottom: 0, right: 0))
+            
+            labelStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: nil, trailing: view.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: (38 * screenWidth) / 428))
+        } else {
+            titleStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, padding: .init(top: 15, left: (60 * screenWidth) / 428, bottom: 0, right: 0))
+            
+            labelStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: nil, trailing: view.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: (60 * screenWidth) / 428))
+        }
         
-        labelStackView.anchor(top: activityNameLabel.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         
-        titleStackView.centerXAnchor.constraint(equalTo: activityNameLabel.leadingAnchor, constant: 20).isActive = true
-        labelStackView.centerXAnchor.constraint(equalTo: activityNameLabel.trailingAnchor, constant: -20).isActive = true
         
         
     }

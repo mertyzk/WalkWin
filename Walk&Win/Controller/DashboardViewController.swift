@@ -258,7 +258,7 @@ class DashboardViewController: UIViewController {
     
     func getTopUsersListFromFirebase(){
         
-        Firestore.firestore().collection("Users").getDocuments { snapshot, fault in
+        Firestore.firestore().collection("Users").order(by: "totalDistance", descending: true).getDocuments { snapshot, fault in
             if let fault = fault {
                 print("kullanıcı bilgileri getirilirken hata: \(fault)")
                 return
