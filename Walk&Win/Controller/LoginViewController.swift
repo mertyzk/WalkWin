@@ -136,6 +136,8 @@ class LoginViewController: UIViewController {
                 }))
                 return
             }
+            let userDocumentId = result!.user.uid
+            ud.set(userDocumentId, forKey: "userDocumentId")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                 self.goToHomepage()
             }

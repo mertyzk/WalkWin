@@ -17,6 +17,8 @@ class HistoryViewController: UIViewController {
     
     var geoPoint: GeoPoint?
     
+    var documentIds: [String] = []
+    
     fileprivate var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
 
     lazy var goBackHome: UIButton = {
@@ -65,7 +67,6 @@ class HistoryViewController: UIViewController {
     }
     
     func getDataByFirebase(){
-
         Firestore.firestore().collection("Activities").whereField("UserId", isEqualTo: currentUser!.userID).getDocuments { snapshot, fault in
             if let fault = fault {
                 print("kullanıcı bilgileri getirilirken hata: \(fault)")
@@ -82,15 +83,10 @@ class HistoryViewController: UIViewController {
                 activiyInstance.ActivityVelocity = document.data()["ActivityVelocity"] as? Double
                 activiyInstance.ActivityPoints = document.data()["ActivityPoints"] as? [GeoPoint]
                 self.myActivities.append(activiyInstance)
+                self.documentIds.append(document.documentID)
             }
             self.tableView.reloadData()
-            self.setByPoints()
         }
-
-    }
-    
-    func setByPoints(){
-
     }
     
     lazy var screenHeight = view.frame.size.height
@@ -109,9 +105,13 @@ class HistoryViewController: UIViewController {
                                  padding: .init(top: ((30 * screenHeight) / 926), left: (27 * screenWidth) / 428, bottom: 20, right: (27 * screenWidth) / 428))
     }
     
-    fileprivate func addTargetForHistory(){
+    func addTargetForHistory(){
         goBackHome.addTarget(self, action: #selector(goBackHomeClicked), for: .touchUpInside)
         settingsButton.addTarget(self, action: #selector(settingsButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func catchDeleteData(){
+        getDataByFirebase()
     }
     
     @objc fileprivate func settingsButtonClicked(){
@@ -170,11 +170,6 @@ extension HistoryViewController: CellDelegate {
         let goToActivityDetailVC: ActivityDetailsViewController = ActivityDetailsViewController()
         goToActivityDetailVC.modalPresentationStyle = .fullScreen
         goToActivityDetailVC.modalTransitionStyle = .crossDissolve
-
-        
-        
-        
-        
         if let distance = cell.activityDistance.text, let name = cell.activityName.text {
             goToActivityDetailVC.activityNameLabel.text = name
             goToActivityDetailVC.distanceLabel.text = distance
@@ -186,6 +181,23 @@ extension HistoryViewController: CellDelegate {
         }
         self.present(goToActivityDetailVC, animated: true, completion: nil)
     }
+    
+    func activityDeleteButtonTapped(cell: HistoryCell) {
+        guard let index = self.tableView.indexPath(for: cell) else { return }
+        let data = documentIds[index.row]
+        
+        let alert = UIAlertController(title: "Delete Activity", message: "Are you sure you want to delete the activity?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action: UIAlertAction!) in
+            Firestore.firestore().collection("Activities").document(data).delete()
+            self.getDataByFirebase()
+            self.myActivities = []
+        }))
+        alert.addAction(UIAlertAction(title: "NO", style: .default, handler: { (action: UIAlertAction!) in
+            alert.dismiss(animated: true)
+        }))
+        self.present(alert, animated: true)
+    }
+        
     
     
 }

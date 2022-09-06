@@ -213,7 +213,7 @@ extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegat
                 if (drawCondition == true){
                     points.append(lastPosition.coordinate)
               
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.10){
                         let polyline = MKPolyline(coordinates: self.points, count: self.points.count)
                         self.newActivityUI.mapView.addOverlay(polyline)
                     }

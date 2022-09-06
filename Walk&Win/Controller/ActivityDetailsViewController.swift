@@ -10,6 +10,8 @@ import MapKit
 import CoreLocation
 import Firebase
 
+
+
 class ActivityDetailsViewController: UIViewController {
     
     var incomingPointsArray: [GeoPoint] = []

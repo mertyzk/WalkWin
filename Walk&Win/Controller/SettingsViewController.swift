@@ -219,6 +219,7 @@ class SettingsViewController: UIViewController {
             } catch let signOutError {
                 print("Sign out error: ", signOutError)
             }
+            ud.set(nil, forKey: "userDocumentId")
             let logoutHud = JGProgressHUD(style: .dark)
             logoutHud.textLabel.text = "Logging out.."
             logoutHud.show(in: self.view)

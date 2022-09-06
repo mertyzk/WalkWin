@@ -8,16 +8,12 @@
 import UIKit
 import Firebase
 
-struct UserListData{
-    var userName : String?
-    var totalDistance: String?
-}
-
 class DashboardViewController: UIViewController {
     
     var tableView = UITableView()
     var popularUsersData: [User] = []
-    
+    var myActivities: [Activities] = []
+    var totalTime: Int = 0
     
     lazy var listButton: UIButton = {
         let button = UIButton()
@@ -122,7 +118,6 @@ class DashboardViewController: UIViewController {
     
     lazy var activityNumber: UILabel = {
         let label = UILabel()
-        label.text = "25"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         return label
@@ -130,7 +125,6 @@ class DashboardViewController: UIViewController {
     
     lazy var timeNumber: UILabel = {
         let label = UILabel()
-        label.text = "48h"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         return label
@@ -179,6 +173,7 @@ class DashboardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         getByDataFromFirebase()
         getTopUsersListFromFirebase()
+        getDataByFirebase()
     }
 
     func setTableViewDelegate(){
@@ -271,6 +266,26 @@ class DashboardViewController: UIViewController {
                 self.popularUsersData.append(userInstance)
             }
             self.tableView.reloadData()
+        }
+    }
+    
+    func getDataByFirebase(){
+        guard let currenUserID = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("Activities").whereField("UserId", isEqualTo: currenUserID).getDocuments { snapshot, fault in
+            if let fault = fault {
+                print("kullanıcı bilgileri getirilirken hata: \(fault)")
+                return
+            }
+            var activiyInstance = Activities()
+            for document in snapshot!.documents {
+                guard let _ = document.data()["UserId"] else { return }
+                activiyInstance.ActivityTime = document.data()["ActivityTime"] as? Int
+                self.myActivities.append(activiyInstance)
+                self.totalTime = self.totalTime + (activiyInstance.ActivityTime!)
+                let formatTime = String(format: "%.2f", Double(self.totalTime) / 60)
+                self.timeNumber.text = "\(formatTime) dk"
+                self.activityNumber.text = "\(self.myActivities.count)"
+            }
         }
     }
     

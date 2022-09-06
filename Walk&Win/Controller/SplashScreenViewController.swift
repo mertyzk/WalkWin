@@ -7,6 +7,8 @@
 
 import UIKit
 
+var ud = UserDefaults.standard
+
 class SplashScreenViewController: UIViewController {
     
     lazy var imageView: UIImageView = {
@@ -28,6 +30,7 @@ class SplashScreenViewController: UIViewController {
         super.viewDidLoad()
         GradientManagement.shared.setGradient(incomingView: view)
         setSplashScreenLayout()
+        detectUserAndNavigate()
     }
     
     fileprivate lazy var screenHeight = view.frame.size.height
@@ -53,15 +56,24 @@ class SplashScreenViewController: UIViewController {
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         poweredLabel.anchor(top: imageView.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
         poweredLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        asyncAfterGoToMainVC()
+
     }
     
-    fileprivate func asyncAfterGoToMainVC(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let loginVC = LoginViewController()
-            loginVC.modalPresentationStyle = .fullScreen
-            loginVC.modalTransitionStyle = .flipHorizontal
-            self.present(loginVC, animated: true)
+    fileprivate func detectUserAndNavigate(){
+        if (ud.string(forKey: "userDocumentId")?.isEmpty == false) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let dashboardVC = DashboardViewController()
+                dashboardVC.modalPresentationStyle = .fullScreen
+                dashboardVC.modalTransitionStyle = .flipHorizontal
+                self.present(dashboardVC, animated: true)
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let loginVC = LoginViewController()
+                loginVC.modalPresentationStyle = .fullScreen
+                loginVC.modalTransitionStyle = .flipHorizontal
+                self.present(loginVC, animated: true)
+            }
         }
     }
 
