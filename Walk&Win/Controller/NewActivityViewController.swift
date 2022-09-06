@@ -25,7 +25,10 @@ class NewActivityViewController: UIViewController {
     var resetStatus: Bool = false
     var totalDistanceFromUser: Double = 0.0
     var lastPositionVelocity: Double = 0.0
-    
+    var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
+    var drawCondition: Bool = false
+    var geoPointArray: [GeoPoint] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager = CLLocationManager()
@@ -58,6 +61,7 @@ class NewActivityViewController: UIViewController {
         newActivityUI.stopButton.isEnabled = true
         activityStatus = true
         startTimer()
+        drawCondition = true
     }
     
     fileprivate func getByTotalDistance(){
@@ -81,6 +85,7 @@ class NewActivityViewController: UIViewController {
         locationManager?.activityType = .fitness
         locationManager?.distanceFilter = 5
         locationManager?.startUpdatingLocation()
+
     }
     
     fileprivate func checkPermission(){
@@ -121,6 +126,11 @@ class NewActivityViewController: UIViewController {
         newActivityUI.stopButton.isEnabled = false
         locationManager?.stopUpdatingLocation()
         stopTimer()
+        drawCondition = false
+        
+        for item in points {
+            geoPointArray.append(GeoPoint(latitude: item.latitude, longitude: item.longitude))
+        }
         
         let timestamp = NSDate().timeIntervalSince1970
         let myTimeInterval = TimeInterval(timestamp)
@@ -130,7 +140,8 @@ class NewActivityViewController: UIViewController {
         let convertDistance = String(format: "%.1f", activityDistance)
         activityDistance = Double(convertDistance)!
         totalDistanceFromUser += activityDistance
-        let setData : [String : Any] = ["ActivityId" : UUID().uuidString, "ActivityDistance" : activityDistance, "ActivityName" : activityName, "UserId" : currentUser!.userID, "ActivityDate" : time, "ActivityTime" : timeCounter, "ActivityVelocity" : lastPositionVelocity]
+        let setData : [String : Any] = ["ActivityId" : UUID().uuidString, "ActivityDistance" : activityDistance, "ActivityName" : activityName, "UserId" : currentUser!.userID, "ActivityDate" : time, "ActivityTime" : timeCounter, "ActivityVelocity" : lastPositionVelocity, "ActivityPoints" : geoPointArray]
+        
         fireStore.collection("Activities").document().setData(setData, merge: true) { (error) in
             if error == nil {
                 return
@@ -146,7 +157,7 @@ class NewActivityViewController: UIViewController {
             print("Save data success")
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25){
             self.goToHistory()
         }
     }
@@ -181,8 +192,6 @@ class NewActivityViewController: UIViewController {
         goToHistoryVC.modalTransitionStyle = .crossDissolve
         self.present(goToHistoryVC, animated: true)
     }
-
-
 }
 
 extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegate {
@@ -201,6 +210,14 @@ extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegat
                 newActivityUI.distanceLabel.text = "\(stringDistance) m"
                 newActivityUI.velocityLabel.text = "\(lastPosition.speed)"
                 lastPositionVelocity = activityDistance / Double(timeCounter)
+                if (drawCondition == true){
+                    points.append(lastPosition.coordinate)
+              
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25){
+                        let polyline = MKPolyline(coordinates: self.points, count: self.points.count)
+                        self.newActivityUI.mapView.addOverlay(polyline)
+                    }
+                }
             }
 
         }
@@ -208,10 +225,20 @@ extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegat
         lastPosition = locations.last
         
         let location = CLLocationCoordinate2D(latitude: lastPosition.coordinate.latitude, longitude: lastPosition.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.0053, longitudeDelta: 0.0053)
+        let span = MKCoordinateSpan(latitudeDelta: 0.0075, longitudeDelta: 0.0075)
         let zone = MKCoordinateRegion(center: location, span: span)
         newActivityUI.mapView.setRegion(zone, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let routePolyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: routePolyline)
+            renderer.strokeColor = #colorLiteral(red: 0.8085321784, green: 0.02181936614, blue: 0.3326718211, alpha: 1)
+            renderer.lineWidth = 8
+            return renderer
+        }
 
+        return MKOverlayRenderer()
     }
     
 }

@@ -8,8 +8,13 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
 
 class ActivityDetailsViewController: UIViewController {
+    
+    var incomingPointsArray: [GeoPoint] = []
+    var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
+    var locationManager: CLLocationManager?
     
     lazy var goBackHome: UIButton = {
         let button = UIButton()
@@ -162,10 +167,38 @@ class ActivityDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLocationSettings()
         GradientManagement.shared.setGradient(incomingView: view)
         addTargetForActivityDetail()
         setToActivityVCLayout()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        showPolyline()
+    }
+
+    fileprivate func showPolyline(){
+        let firstLatitude = incomingPointsArray[0].latitude
+        let firstLongitude = incomingPointsArray[0].longitude
+        let location = CLLocationCoordinate2D(latitude: firstLatitude, longitude: firstLongitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035)
+        let zone = MKCoordinateRegion(center: location, span: span)
+        mapView.setRegion(zone, animated: true)
+        
+        for item in incomingPointsArray{
+            points.append(CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
+        }
+        let polyline = MKPolyline(coordinates: self.points, count: self.points.count)
+        mapView.addOverlay(polyline)
+    }
+    
+    
+    fileprivate func setLocationSettings(){
+        locationManager?.delegate = self
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+    }
+    
     
     lazy var screenHeight = view.frame.size.height
     lazy var screenWidth = view.frame.size.width
@@ -236,4 +269,19 @@ class ActivityDetailsViewController: UIViewController {
         self.present(goToHomepage, animated: true)
     }
 
+}
+
+extension ActivityDetailsViewController: CLLocationManagerDelegate, MKMapViewDelegate{
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let routePolyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: routePolyline)
+            renderer.strokeColor = #colorLiteral(red: 0.8085321784, green: 0.02181936614, blue: 0.3326718211, alpha: 1)
+            renderer.lineWidth = 8
+            return renderer
+        }
+
+        return MKOverlayRenderer()
+    }
+    
 }

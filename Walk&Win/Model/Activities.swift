@@ -16,6 +16,7 @@ struct Activities {
     var ActivityTime: Int?
     var ActivityDate: Timestamp?
     var ActivityVelocity: Double?
+    var ActivityPoints: [GeoPoint]?
     
     init(activityData: [String : Any]) {
         self.ActivityId = activityData["ActivityId"] as? String ?? "0x0x0x0"
@@ -25,6 +26,7 @@ struct Activities {
         self.ActivityDate = activityData["ActivityDate"] as? Timestamp
         self.ActivityTime = activityData["ActivityTime"] as? Int ?? 0
         self.ActivityVelocity = activityData["ActivityVelocity"] as? Double ?? 0.0
+        self.ActivityPoints = activityData["ActivityPoints"] as? [GeoPoint]
     }
     
     init() {

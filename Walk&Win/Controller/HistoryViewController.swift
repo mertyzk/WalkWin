@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 import Firebase
 
 class HistoryViewController: UIViewController {
@@ -13,6 +14,10 @@ class HistoryViewController: UIViewController {
     let tableView = UITableView()
     
     var myActivities: [Activities] = []
+    
+    var geoPoint: GeoPoint?
+    
+    fileprivate var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
 
     lazy var goBackHome: UIButton = {
         let button = UIButton()
@@ -43,13 +48,13 @@ class HistoryViewController: UIViewController {
         configTableView()
         setToHistoryVCLayout()
         getDataByFirebase()
-        
     }
     
     func setTableViewDelegate(){
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
     
     func configTableView(){
         view.addSubview(tableView)
@@ -67,19 +72,24 @@ class HistoryViewController: UIViewController {
                 return
             }
             //guard let incomingData = snapshot?.documents else { return }
-            
+            var activiyInstance = Activities()
             for document in snapshot!.documents {
-                var activiyInstance = Activities()
                 guard let _ = document.data()["UserId"] else { return }
                 activiyInstance.ActivityName = document.data()["ActivityName"] as? String
                 activiyInstance.ActivityDate = document.data()["ActivityDate"] as? Timestamp
                 activiyInstance.ActivityDistance = document.data()["ActivityDistance"] as? Double
                 activiyInstance.ActivityTime = document.data()["ActivityTime"] as? Int
                 activiyInstance.ActivityVelocity = document.data()["ActivityVelocity"] as? Double
+                activiyInstance.ActivityPoints = document.data()["ActivityPoints"] as? [GeoPoint]
                 self.myActivities.append(activiyInstance)
             }
             self.tableView.reloadData()
+            self.setByPoints()
         }
+
+    }
+    
+    func setByPoints(){
 
     }
     
@@ -160,12 +170,18 @@ extension HistoryViewController: CellDelegate {
         let goToActivityDetailVC: ActivityDetailsViewController = ActivityDetailsViewController()
         goToActivityDetailVC.modalPresentationStyle = .fullScreen
         goToActivityDetailVC.modalTransitionStyle = .crossDissolve
+
+        
+        
+        
+        
         if let distance = cell.activityDistance.text, let name = cell.activityName.text {
             goToActivityDetailVC.activityNameLabel.text = name
             goToActivityDetailVC.distanceLabel.text = distance
             let stringVelocity = String(format: "%.1f", data.ActivityVelocity ?? "0.0 m/s")
             goToActivityDetailVC.velocityLabel.text = "\(stringVelocity) m/s"
             goToActivityDetailVC.timeLabel.text = "\(data.ActivityTime ?? 0) dk"
+            goToActivityDetailVC.incomingPointsArray = data.ActivityPoints!
 
         }
         self.present(goToActivityDetailVC, animated: true, completion: nil)
