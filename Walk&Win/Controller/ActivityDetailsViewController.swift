@@ -17,6 +17,8 @@ class ActivityDetailsViewController: UIViewController {
     var incomingPointsArray: [GeoPoint] = []
     var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
     var locationManager: CLLocationManager?
+    var startPinCondition = false
+    var finishPinCondition = false
     
     lazy var goBackHome: UIButton = {
         let button = UIButton()
@@ -180,10 +182,15 @@ class ActivityDetailsViewController: UIViewController {
     }
 
     fileprivate func showPolyline(){
-        let firstLatitude = incomingPointsArray[0].latitude
-        let firstLongitude = incomingPointsArray[0].longitude
+        let indexPoint: Int = incomingPointsArray.count / 2
+        let firstLatitude = incomingPointsArray[indexPoint].latitude
+        let firstLongitude = incomingPointsArray[indexPoint].longitude
+        guard let firstLatitudeForPin = incomingPointsArray.first?.latitude else { return  }
+        guard let firstLongitudeForPin = incomingPointsArray.first?.longitude else { return  }
+        guard let lastLatitudeForPin = incomingPointsArray.last?.latitude else { return  }
+        guard let lastLongitudeForPin = incomingPointsArray.last?.longitude else { return  }
         let location = CLLocationCoordinate2D(latitude: firstLatitude, longitude: firstLongitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.035, longitudeDelta: 0.035)
+        let span = MKCoordinateSpan(latitudeDelta: 0.014, longitudeDelta: 0.014)
         let zone = MKCoordinateRegion(center: location, span: span)
         mapView.setRegion(zone, animated: true)
         
@@ -192,9 +199,19 @@ class ActivityDetailsViewController: UIViewController {
         }
         let polyline = MKPolyline(coordinates: self.points, count: self.points.count)
         mapView.addOverlay(polyline)
+        
+        let coords = [CLLocationCoordinate2D(latitude: firstLatitudeForPin, longitude: firstLongitudeForPin), CLLocationCoordinate2D(latitude: lastLatitudeForPin, longitude: lastLongitudeForPin)]
+        let titles = ["Start Location", "Finish Point"]
+        
+        for i in coords.indices {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coords[i]
+            annotation.title = titles[i]
+            mapView.addAnnotation(annotation)
+        }
     }
-    
-    
+
+
     fileprivate func setLocationSettings(){
         locationManager?.delegate = self
         mapView.delegate = self
@@ -244,8 +261,6 @@ class ActivityDetailsViewController: UIViewController {
         }
         
         
-        
-        
     }
     
     fileprivate func addTargetForActivityDetail(){
@@ -284,6 +299,20 @@ extension ActivityDetailsViewController: CLLocationManagerDelegate, MKMapViewDel
         }
 
         return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
+        switch annotation.title!! {
+            case "Start Location":
+            annotationView.markerTintColor = #colorLiteral(red: 0, green: 0.6912688613, blue: 0, alpha: 1)
+
+            case "Finish Point":
+            annotationView.markerTintColor = #colorLiteral(red: 0.7505447268, green: 0, blue: 0.6962305903, alpha: 1)
+            default:
+                annotationView.markerTintColor = UIColor.blue
+        }
+        return annotationView
     }
     
 }

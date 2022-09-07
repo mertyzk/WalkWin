@@ -205,7 +205,7 @@ class NewActivityView: UIView {
             mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (285 * screenHeight) / 926, right: 0))
         } else {
             
-            mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (275 * screenHeight) / 926, right: 0))
+            mapView.anchor(top: infoButton.bottomAnchor, bottom: self.bottomAnchor, leading: self.leadingAnchor, trailing: self.trailingAnchor, padding: .init(top: 15, left: 0, bottom: (225 * screenHeight) / 926, right: 0))
         }
         
         buttonStackView.anchor(top: mapView.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: 15, left: 0, bottom: 0, right: 0))

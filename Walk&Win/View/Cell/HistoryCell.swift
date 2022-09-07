@@ -81,7 +81,7 @@ class HistoryCell: UITableViewCell {
     
     lazy var activityDetailsButton: UIButton = {
         let button = UIButton()
-        button.setTitle("View Activity Details", for: .normal)
+        button.setTitle("Activity Details", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.isUserInteractionEnabled = true

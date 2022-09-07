@@ -283,7 +283,7 @@ class DashboardViewController: UIViewController {
                 self.myActivities.append(activiyInstance)
                 self.totalTime = self.totalTime + (activiyInstance.ActivityTime!)
                 let formatTime = String(format: "%.2f", Double(self.totalTime) / 60)
-                self.timeNumber.text = "\(formatTime) dk"
+                self.timeNumber.text = "\(formatTime) min"
                 self.activityNumber.text = "\(self.myActivities.count)"
             }
         }

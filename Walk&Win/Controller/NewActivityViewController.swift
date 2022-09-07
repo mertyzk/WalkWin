@@ -83,9 +83,8 @@ class NewActivityViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         newActivityUI.mapView.showsUserLocation = true
         locationManager?.activityType = .fitness
-        locationManager?.distanceFilter = 5
+        locationManager?.distanceFilter = 3
         locationManager?.startUpdatingLocation()
-
     }
     
     fileprivate func checkPermission(){
@@ -225,7 +224,7 @@ extension NewActivityViewController: CLLocationManagerDelegate, MKMapViewDelegat
         lastPosition = locations.last
         
         let location = CLLocationCoordinate2D(latitude: lastPosition.coordinate.latitude, longitude: lastPosition.coordinate.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.0075, longitudeDelta: 0.0075)
+        let span = MKCoordinateSpan(latitudeDelta: 0.0095, longitudeDelta: 0.0095)
         let zone = MKCoordinateRegion(center: location, span: span)
         newActivityUI.mapView.setRegion(zone, animated: true)
     }

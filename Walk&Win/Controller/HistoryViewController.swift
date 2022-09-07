@@ -175,7 +175,9 @@ extension HistoryViewController: CellDelegate {
             goToActivityDetailVC.distanceLabel.text = distance
             let stringVelocity = String(format: "%.1f", data.ActivityVelocity ?? "0.0 m/s")
             goToActivityDetailVC.velocityLabel.text = "\(stringVelocity) m/s"
-            goToActivityDetailVC.timeLabel.text = "\(data.ActivityTime ?? 0) dk"
+            print(data.ActivityTime!)
+            let formatTime = String(format: "%.2f", Double(data.ActivityTime!) / 60)
+            goToActivityDetailVC.timeLabel.text = "\(formatTime) min"
             goToActivityDetailVC.incomingPointsArray = data.ActivityPoints!
 
         }
@@ -189,12 +191,13 @@ extension HistoryViewController: CellDelegate {
         let alert = UIAlertController(title: "Delete Activity", message: "Are you sure you want to delete the activity?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action: UIAlertAction!) in
             Firestore.firestore().collection("Activities").document(data).delete()
-            self.getDataByFirebase()
             self.myActivities = []
+            self.getDataByFirebase()
         }))
         alert.addAction(UIAlertAction(title: "NO", style: .default, handler: { (action: UIAlertAction!) in
             alert.dismiss(animated: true)
         }))
+        tableView.reloadData()
         self.present(alert, animated: true)
     }
         
