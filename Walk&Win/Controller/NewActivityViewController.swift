@@ -101,8 +101,6 @@ class NewActivityViewController: UIViewController {
     
     func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateForCounter), userInfo: nil, repeats: true)
-
-        
     }
     
     func stopTimer(){
@@ -116,6 +114,16 @@ class NewActivityViewController: UIViewController {
     }
     
     @objc func startButtonClicked(){
+        /*print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())
+        print(WeatherModel.shared.getCurrentWeather())*/
         let goToPopup: PopUpWindow = PopUpWindow()
         goToPopup.popUpWindowView.newActivityNameLayout()
         self.present(goToPopup, animated: true, completion: nil)

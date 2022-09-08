@@ -13,7 +13,7 @@ class HistoryViewController: UIViewController {
     
     let tableView = UITableView()
     
-    var myActivities: [Activities] = []
+    var myActivities: [ActivitiesModel] = []
     
     var geoPoint: GeoPoint?
     
@@ -73,7 +73,7 @@ class HistoryViewController: UIViewController {
                 return
             }
             //guard let incomingData = snapshot?.documents else { return }
-            var activiyInstance = Activities()
+            var activiyInstance = ActivitiesModel()
             for document in snapshot!.documents {
                 guard let _ = document.data()["UserId"] else { return }
                 activiyInstance.ActivityName = document.data()["ActivityName"] as? String
@@ -200,7 +200,5 @@ extension HistoryViewController: CellDelegate {
         tableView.reloadData()
         self.present(alert, animated: true)
     }
-        
-    
     
 }

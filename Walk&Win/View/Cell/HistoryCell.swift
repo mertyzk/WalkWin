@@ -99,7 +99,7 @@ class HistoryCell: UITableViewCell {
         return button
     }()
     
-    func setGenerate(item: Activities) {
+    func setGenerate(item: ActivitiesModel) {
         activityName.text = item.ActivityName
         let meterToKilometer = item.ActivityDistance! / 1000
         let convertMeterToKilomet = String(format: "%.2f", meterToKilometer)

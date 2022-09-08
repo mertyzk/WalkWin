@@ -109,7 +109,6 @@ class PopUpWindow: UIViewController {
     }
     
     @objc func checkDataChange(){
-        
         let dataValidation = (popUpWindowView.popupEmailTextField.text?.count ?? 0) > 0 && (popUpWindowView.popupNickNameTextField.text?.count ?? 0) > 0 && (popUpWindowView.popupPasswordTextField.text?.count ?? 0) > 0
         
         if dataValidation {

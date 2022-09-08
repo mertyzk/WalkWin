@@ -107,15 +107,15 @@ class LoginViewController: UIViewController {
         
     }
     
-    fileprivate func addTargetForLoginVC(){
-        memberTextButton.addTarget(self, action: #selector(memberTextButtonClicked), for: .touchUpInside)
-        loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
-    }
-    
     @objc func memberTextButtonClicked(){
         let goToPopup: PopUpWindow = PopUpWindow()
         goToPopup.popUpWindowView.openPopupLayout()
         self.present(goToPopup, animated: true, completion: nil)
+    }
+    
+    fileprivate func addTargetForLoginVC(){
+        memberTextButton.addTarget(self, action: #selector(memberTextButtonClicked), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
     }
     
     @objc func loginButtonPressed(){

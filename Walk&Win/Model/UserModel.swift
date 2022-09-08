@@ -7,9 +7,9 @@
 
 import Foundation
 
-var currentUser: User?
+var currentUser: UserModel?
 
-struct User {
+struct UserModel {
     var nickName: String?
     var userID: String?
     var emailAdress: String?

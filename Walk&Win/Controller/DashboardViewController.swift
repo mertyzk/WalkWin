@@ -11,8 +11,8 @@ import Firebase
 class DashboardViewController: UIViewController {
     
     var tableView = UITableView()
-    var popularUsersData: [User] = []
-    var myActivities: [Activities] = []
+    var popularUsersData: [UserModel] = []
+    var myActivities: [ActivitiesModel] = []
     var totalTime: Int = 0
     
     lazy var listButton: UIButton = {
@@ -208,6 +208,13 @@ class DashboardViewController: UIViewController {
         goToNewActivityVC()
     }
     
+    fileprivate func goToNewActivityVC(){
+        let goToNewActivity: NewActivityViewController = NewActivityViewController()
+        goToNewActivity.modalPresentationStyle = .fullScreen
+        goToNewActivity.modalTransitionStyle = .crossDissolve
+        self.present(goToNewActivity, animated: true)
+    }
+    
     fileprivate func goToSettingsVC(){
         let goToSettings: SettingsViewController = SettingsViewController()
         goToSettings.modalPresentationStyle = .fullScreen
@@ -222,12 +229,7 @@ class DashboardViewController: UIViewController {
         self.present(goToHistory, animated: true)
     }
     
-    fileprivate func goToNewActivityVC(){
-        let goToNewActivity: NewActivityViewController = NewActivityViewController()
-        goToNewActivity.modalPresentationStyle = .fullScreen
-        goToNewActivity.modalTransitionStyle = .crossDissolve
-        self.present(goToNewActivity, animated: true)
-    }
+
     
     fileprivate func goToLogin(){
         let goToLoginVC: LoginViewController = LoginViewController()
@@ -245,7 +247,7 @@ class DashboardViewController: UIViewController {
             }
    
             guard let userData = snapshot?.data() else { return }
-            currentUser = User(userData: userData)
+            currentUser = UserModel(userData: userData)
             self.welcomeLabel.text = "Hi, \(currentUser?.nickName ?? "Error")"
             
         }
@@ -258,8 +260,7 @@ class DashboardViewController: UIViewController {
                 print("kullanıcı bilgileri getirilirken hata: \(fault)")
                 return
             }
-            //guard let incomingData = snapshot?.documents else { return }
-            var userInstance = User()
+            var userInstance = UserModel()
             for document in snapshot!.documents {
                 userInstance.nickName = document.data()["nickName"] as? String
                 userInstance.totalDistance = document.data()["totalDistance"] as? Double
@@ -276,7 +277,7 @@ class DashboardViewController: UIViewController {
                 print("kullanıcı bilgileri getirilirken hata: \(fault)")
                 return
             }
-            var activiyInstance = Activities()
+            var activiyInstance = ActivitiesModel()
             for document in snapshot!.documents {
                 guard let _ = document.data()["UserId"] else { return }
                 activiyInstance.ActivityTime = document.data()["ActivityTime"] as? Int

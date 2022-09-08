@@ -10,15 +10,11 @@ import MapKit
 import CoreLocation
 import Firebase
 
-
-
 class ActivityDetailsViewController: UIViewController {
     
     var incomingPointsArray: [GeoPoint] = []
     var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
     var locationManager: CLLocationManager?
-    var startPinCondition = false
-    var finishPinCondition = false
     
     lazy var goBackHome: UIButton = {
         let button = UIButton()

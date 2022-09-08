@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Activities {
+struct ActivitiesModel {
     var ActivityId: String?
     var ActivityName: String?
     var ActivityDistance: Double?

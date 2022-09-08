@@ -60,7 +60,7 @@ class DashboardCell: UITableViewCell {
     }()
     
     
-    func setGenerate(item: User) {
+    func setGenerate(item: UserModel) {
         userName.text = item.nickName
         let convertTo2f = String(format: "%.2f", item.totalDistance ?? 0.0)
         totalDistance.text = "\(convertTo2f)m"
