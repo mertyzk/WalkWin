@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     
     lazy var logoArea: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "25yillogo")?.withRenderingMode(.alwaysOriginal)
+        imageView.image = UIImage(named: "logom")?.withRenderingMode(.alwaysOriginal)
         return imageView
     }()
     
@@ -90,10 +90,10 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(memberTextButton)
         
-        logoArea.anchor(top: view.topAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: ((225 * screenHeight) / 926), left: 0, bottom: 0, right: 0), size: .init(width: 339.772, height: 65))
+        logoArea.anchor(top: view.topAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: ((225 * screenHeight) / 926), left: 0, bottom: 0, right: 0), size: .init(width: 354, height: 72))
         logoArea.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        emailTextField.anchor(top: logoArea.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: ((100 * screenHeight) / 926), left: 0, bottom: 0, right: 0), size: .init(width: 275, height: 45))
+        emailTextField.anchor(top: logoArea.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: ((50 * screenHeight) / 926), left: 0, bottom: 0, right: 0), size: .init(width: 275, height: 45))
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         passwordTextField.anchor(top: emailTextField.bottomAnchor, bottom: nil, leading: nil, trailing: nil, padding: .init(top: ((25 * screenHeight) / 926), left: 0, bottom: 0, right: 0), size: .init(width: 275, height: 45))

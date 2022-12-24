@@ -28,6 +28,7 @@ class NewActivityViewController: UIViewController {
     var points: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
     var drawCondition: Bool = false
     var geoPointArray: [GeoPoint] = []
+    private var weatherVM: WeatherViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +73,6 @@ class NewActivityViewController: UIViewController {
             }
             guard let userData = snapshot?.data() else { return }
             self.totalDistanceFromUser = userData["totalDistance"] as? Double ?? 0.0
-            
-            
         }
     }
     
@@ -114,16 +113,6 @@ class NewActivityViewController: UIViewController {
     }
     
     @objc func startButtonClicked(){
-        /*print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())
-        print(WeatherModel.shared.getCurrentWeather())*/
         let goToPopup: PopUpWindow = PopUpWindow()
         goToPopup.popUpWindowView.newActivityNameLayout()
         self.present(goToPopup, animated: true, completion: nil)
@@ -168,7 +157,6 @@ class NewActivityViewController: UIViewController {
             self.goToHistory()
         }
     }
-    
     
     @objc func updateForCounter(){
         timeCounter = timeCounter + 1

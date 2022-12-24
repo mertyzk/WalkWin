@@ -175,7 +175,7 @@ class DashboardViewController: UIViewController {
         getTopUsersListFromFirebase()
         getDataByFirebase()
     }
-
+    
     func setTableViewDelegate(){
         tableView.delegate = self
         tableView.dataSource = self

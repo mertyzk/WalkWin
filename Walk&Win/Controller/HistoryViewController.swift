@@ -51,6 +51,11 @@ class HistoryViewController: UIViewController {
         setToHistoryVCLayout()
         getDataByFirebase()
     }
+
+    deinit {
+        print("---->>> DEBUG: deinit")
+    }
+
     
     func setTableViewDelegate(){
         tableView.delegate = self
@@ -123,6 +128,8 @@ class HistoryViewController: UIViewController {
     
     @objc fileprivate func goBackHomeClicked(){
         goToHomepage()
+        dismiss(animated: true)
+        //navigationController?.popViewController(animated: true)
     }
     
     @objc fileprivate func goActivityDetailsClicked(){
@@ -175,7 +182,6 @@ extension HistoryViewController: CellDelegate {
             goToActivityDetailVC.distanceLabel.text = distance
             let stringVelocity = String(format: "%.1f", data.ActivityVelocity ?? "0.0 m/s")
             goToActivityDetailVC.velocityLabel.text = "\(stringVelocity) m/s"
-            print(data.ActivityTime!)
             let formatTime = String(format: "%.2f", Double(data.ActivityTime!) / 60)
             goToActivityDetailVC.timeLabel.text = "\(formatTime) min"
             goToActivityDetailVC.incomingPointsArray = data.ActivityPoints!

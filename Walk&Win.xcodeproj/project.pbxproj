@@ -16,12 +16,13 @@
 		E21A4F2C288E50C00083458C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21A4F2A288E50C00083458C /* LaunchScreen.storyboard */; };
 		E22606A428AFA6E60080A5A9 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22606A328AFA6E60080A5A9 /* HistoryCell.swift */; };
 		E234ABEC28C3C65400513955 /* ActivitiesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E234ABEB28C3C65400513955 /* ActivitiesModel.swift */; };
-		E23DCB7A28ACD35200D483FC /* Extensions+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7928ACD35200D483FC /* Extensions+UIImageView.swift */; };
 		E23DCB7C28ACDC8800D483FC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7B28ACDC8800D483FC /* LoginViewController.swift */; };
 		E23DCB8028ACDD4500D483FC /* GradientManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23DCB7F28ACDD4500D483FC /* GradientManagement.swift */; };
 		E250BEE428ACCFD0001D4DBD /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E250BEE328ACCFD0001D4DBD /* SplashScreenViewController.swift */; };
 		E250BEE828ACD06D001D4DBD /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E250BEE728ACD06D001D4DBD /* Extensions+UIView.swift */; };
 		E258B47828B4CAFD00786F94 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E258B47728B4CAFD00786F94 /* PaddingLabel.swift */; };
+		E25C48E228CB2733007523D7 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C48E128CB2733007523D7 /* Service.swift */; };
+		E25C48E428CB283F007523D7 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C48E328CB283F007523D7 /* WeatherViewModel.swift */; };
 		E28149F128AE1787007A0CF1 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28149F028AE1787007A0CF1 /* DashboardViewController.swift */; };
 		E29309F628B8D1DD008CDBC6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29309F528B8D1DD008CDBC6 /* UserModel.swift */; };
 		E29FA54128AEB140008F4454 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29FA54028AEB13F008F4454 /* SettingsViewController.swift */; };
@@ -50,12 +51,13 @@
 		E21A4F2D288E50C00083458C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E22606A328AFA6E60080A5A9 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		E234ABEB28C3C65400513955 /* ActivitiesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesModel.swift; sourceTree = "<group>"; };
-		E23DCB7928ACD35200D483FC /* Extensions+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIImageView.swift"; sourceTree = "<group>"; };
 		E23DCB7B28ACDC8800D483FC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E23DCB7F28ACDD4500D483FC /* GradientManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientManagement.swift; sourceTree = "<group>"; };
 		E250BEE328ACCFD0001D4DBD /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		E250BEE728ACD06D001D4DBD /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		E258B47728B4CAFD00786F94 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		E25C48E128CB2733007523D7 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		E25C48E328CB283F007523D7 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		E28149F028AE1787007A0CF1 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		E29309F528B8D1DD008CDBC6 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E29FA54028AEB13F008F4454 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		E21A4F36288E516B0083458C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E25C48E328CB283F007523D7 /* WeatherViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 		E23DCB7D28ACDD0800D483FC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E25C48E028CB2724007523D7 /* Services */,
 				E23DCB7E28ACDD1800D483FC /* Theme */,
 			);
 			path = Helpers;
@@ -214,10 +218,17 @@
 			isa = PBXGroup;
 			children = (
 				E250BEE728ACD06D001D4DBD /* Extensions+UIView.swift */,
-				E23DCB7928ACD35200D483FC /* Extensions+UIImageView.swift */,
 				E2CADCAE28AD071B00648AB9 /* Extensions+UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E25C48E028CB2724007523D7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E25C48E128CB2733007523D7 /* Service.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E2A6029328C1E32500C4ADD3 /* Popup */ = {
@@ -394,7 +405,6 @@
 				E2E98D2C28AF659B00B3E642 /* DashboardCell.swift in Sources */,
 				E250BEE828ACD06D001D4DBD /* Extensions+UIView.swift in Sources */,
 				E2DEF93E28C9D85D00F869DC /* WeatherModel.swift in Sources */,
-				E23DCB7A28ACD35200D483FC /* Extensions+UIImageView.swift in Sources */,
 				E2CADCAB28AD061600648AB9 /* PopupWindowViewController.swift in Sources */,
 				E250BEE428ACCFD0001D4DBD /* SplashScreenViewController.swift in Sources */,
 				E28149F128AE1787007A0CF1 /* DashboardViewController.swift in Sources */,
@@ -403,6 +413,8 @@
 				E29FA54128AEB140008F4454 /* SettingsViewController.swift in Sources */,
 				E29FA54728AEBC22008F4454 /* NewActivityViewController.swift in Sources */,
 				E2A6029828C1E37800C4ADD3 /* NewActivityView.swift in Sources */,
+				E25C48E228CB2733007523D7 /* Service.swift in Sources */,
+				E25C48E428CB283F007523D7 /* WeatherViewModel.swift in Sources */,
 				E29309F628B8D1DD008CDBC6 /* UserModel.swift in Sources */,
 				E234ABEC28C3C65400513955 /* ActivitiesModel.swift in Sources */,
 			);
