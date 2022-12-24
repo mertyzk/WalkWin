@@ -127,7 +127,7 @@ class HistoryViewController: UIViewController {
     }
     
     @objc fileprivate func goBackHomeClicked(){
-        goToHomepage()
+        //goToHomepage()
         dismiss(animated: true)
         //navigationController?.popViewController(animated: true)
     }
